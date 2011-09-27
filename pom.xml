@@ -10,8 +10,9 @@
 
 	<groupId>jenkins.plugin.assembla</groupId>
 	<artifactId>assembla-jenkins</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>hpi</packaging>
+  	<version>1.0-SNAPSHOT</version>
+  	<packaging>hpi</packaging>
+  	<name>Jenkins Assembla plugin</name>
 
 	<dependencies>
 		<dependency>

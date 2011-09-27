@@ -87,9 +87,14 @@ public class AssemblaSite {
 	}
 
 	public String getPattern() {
-		
-		if(pattern==null || pattern.length()==0){
-			
+
+		return pattern;
+	}
+
+	public String getPatternInternal() {
+
+		if (pattern == null || pattern.length() == 0) {
+
 			return DEFAULT_PATTERN;
 		}
 		

@@ -38,7 +38,7 @@ public class AssemblaChangeLogAnnotator extends ChangeLogAnnotator {
 
 		String commitMessage = change.getMsg();
 
-		Pattern pattern = Pattern.compile(site.getPattern());
+		Pattern pattern = Pattern.compile(site.getPatternInternal());
 		Matcher m = pattern.matcher(commitMessage);
 
 		AssemblaTicketsAPI ticketApi = new AssemblaTicketsAPI(site);

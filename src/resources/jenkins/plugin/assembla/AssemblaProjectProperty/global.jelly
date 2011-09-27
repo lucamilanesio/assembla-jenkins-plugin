@@ -1,0 +1,32 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <f:section title="Assembla">
+    <f:entry title="Assembla sites"
+      description="">
+      <f:repeatable name="assemblasite" var="site" items="${descriptor.sites}">
+      		<table width="100%">
+			  <f:entry title="Assembla URL" field="url">
+			    <f:textbox name="assembla.url" value="${site.url}" />
+			  </f:entry>
+			  <f:entry title="Assembla Username" field="username">
+			    <f:textbox name="assembla.username" value="${site.username}"/>
+			  </f:entry>
+			  <f:entry title="Assembla Password" field="password">
+			   	<f:password name="assembla.password" value="${site.password}"/>
+			  </f:entry>
+			  <f:entry title="">
+			  	<div align="right">
+			  	<f:validateButton title="Test Connection" progress="Testing..."
+   					method="testConnection" with="assembla.url,assembla.username,assembla.password" />
+   				</div>
+   			  </f:entry>
+			  <f:entry title="">
+            	<div align="right">
+              		<f:repeatableDeleteButton />
+            	</div>
+          	   </f:entry>
+        	</table>
+      </f:repeatable>
+    </f:entry>
+  </f:section>
+</j:jelly>

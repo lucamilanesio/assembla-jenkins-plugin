@@ -1,0 +1,20 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form"> 
+       <f:optionalBlock name="assembla.pluginEnabled" title="Integrate with Assembla" checked="${instance.pluginEnabled}">
+		  <j:if test="${descriptor.sites.size() &gt; 0}">
+		    <f:entry title="Assembla site">
+		      <select class="setting-input" name="assembla.siteName">
+		        <j:forEach var="s" items="${descriptor.sites}">
+		          <f:option selected="${s.name==instance.siteName}">${s.name}</f:option>
+		        </j:forEach>
+		      </select>
+		    </f:entry>
+			<f:entry title="Assembla Space name" field="spaceName">
+			    <f:textbox name="assembla.spaceName"/>
+			</f:entry>
+			<f:entry title="Enable ticket back track" field="backtrackEnabled">
+			     <f:checkbox name="assembla.backtrackEnabled" />
+			</f:entry>
+		  </j:if>
+       </f:optionalBlock>
+</j:jelly>

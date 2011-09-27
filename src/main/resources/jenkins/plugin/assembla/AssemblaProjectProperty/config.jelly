@@ -2,7 +2,7 @@
          xmlns:t="/lib/hudson" xmlns:f="/lib/form"> 
        <f:optionalBlock name="assembla.pluginEnabled" title="Integrate with Assembla" checked="${instance.pluginEnabled}">
 		  <j:if test="${descriptor.sites.size() &gt; 0}">
-		    <f:entry title="Assembla site">
+		    <f:entry title="Assembla Site">
 		      <select class="setting-input" name="assembla.siteName">
 		        <j:forEach var="s" items="${descriptor.sites}">
 		          <f:option selected="${s.name==instance.siteName}">${s.name}</f:option>
@@ -12,7 +12,7 @@
 			<f:entry title="Assembla Space name" field="spaceName">
 			    <f:textbox name="assembla.spaceName"/>
 			</f:entry>
-			<f:entry title="Update relevant Assembla ticket" field="backtrackEnabled">
+			<f:entry title="Update relevant Assembla tickets" field="backtrackEnabled">
 			     <f:checkbox name="assembla.backtrackEnabled" />
 			</f:entry>
 		  </j:if>

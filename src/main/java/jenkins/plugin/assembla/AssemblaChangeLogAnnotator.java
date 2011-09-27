@@ -23,10 +23,6 @@ public class AssemblaChangeLogAnnotator extends ChangeLogAnnotator {
 	private static final Logger LOGGER = Logger
 			.getLogger(AssemblaChangeLogAnnotator.class.getName());
 
-	// should match something like "#21 blahblah"
-	private static final Pattern DEFAULT_ASSEMBLA_TICKET_PATTERN = Pattern
-			.compile("(#)([0-9]+)( .*)");
-
 	@Override
 	public void annotate(AbstractBuild<?, ?> build, Entry change,
 			MarkupText text) {
@@ -42,7 +38,7 @@ public class AssemblaChangeLogAnnotator extends ChangeLogAnnotator {
 
 		String commitMessage = change.getMsg();
 
-		Pattern pattern = DEFAULT_ASSEMBLA_TICKET_PATTERN;
+		Pattern pattern = Pattern.compile(site.getPattern());
 		Matcher m = pattern.matcher(commitMessage);
 
 		AssemblaTicketsAPI ticketApi = new AssemblaTicketsAPI(site);
@@ -50,7 +46,7 @@ public class AssemblaChangeLogAnnotator extends ChangeLogAnnotator {
 		while (m.find()) {
 			if (m.groupCount() >= 1) {
 
-				String ticketNumber = m.group(2);
+				String ticketNumber = m.group(1).substring(1);
 				LOGGER.info("Annotating ASSEMBLA ticket: '" + ticketNumber
 						+ "'");
 
@@ -63,7 +59,7 @@ public class AssemblaChangeLogAnnotator extends ChangeLogAnnotator {
 
 				text.addMarkup(
 						m.start(1),
-						m.end(2),
+						m.end(1),
 						String.format(
 								"<a href='%s' tooltip='%s' target='_blank'>%s",
 								ticket.getUrl(),

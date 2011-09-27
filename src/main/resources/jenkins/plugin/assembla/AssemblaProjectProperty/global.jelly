@@ -14,6 +14,9 @@
 			  <f:entry title="Assembla Password" field="password">
 			   	<f:password name="assembla.password" value="${site.password}"/>
 			  </f:entry>
+			  <f:entry title="Ticket Pattern" field="pattern">
+			   	<f:textbox name="assembla.pattern" value="${site.pattern}"/>
+			  </f:entry>
 			  <f:entry title="">
 			  	<div align="right">
 			  	<f:validateButton title="Test Connection" progress="Testing..."

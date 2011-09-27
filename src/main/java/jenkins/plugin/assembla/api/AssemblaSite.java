@@ -10,24 +10,29 @@ public class AssemblaSite {
 	private String username;
 	private String password;
 	private String url;
-	
+	private String pattern;
+
+	private final static String DEFAULT_PATTERN = "(#[0-9]+)( .*)"; // default
+
 	private transient String space;
-	
+
 	private transient boolean backtrackEnabled;
-	
+
 	private transient boolean pluginEnabled;
-	
-    /**
-     * @stapler-constructor
-     */
-    @DataBoundConstructor
-    public AssemblaSite(String username, String password, String url) {
-   
-    	this.password = password;
-    	this.username =  username;
-    	this.url= url;
-    }
-	
+
+	/**
+	 * @stapler-constructor
+	 */
+	@DataBoundConstructor
+	public AssemblaSite(String username, String password, String url,
+			String pattern) {
+
+		this.password = password;
+		this.username = username;
+		this.url = url;
+		this.pattern = pattern;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -59,13 +64,13 @@ public class AssemblaSite {
 	public void setSpace(String space) {
 		this.space = space;
 	}
-	
-	public String getName(){
-		
+
+	public String getName() {
+
 		return url;
 	}
-	
-    public boolean isBacktrackEnabled() {
+
+	public boolean isBacktrackEnabled() {
 		return backtrackEnabled;
 	}
 
@@ -81,25 +86,42 @@ public class AssemblaSite {
 		this.pluginEnabled = pluginEnabled;
 	}
 
-	public static AssemblaSite get(AbstractProject<?,?> p) {
-        AssemblaProjectProperty jpp = p.getProperty(AssemblaProjectProperty.class);
-        if(jpp!=null) {
-            AssemblaSite site = jpp.getSite();
-            if(site!=null)
-                return site;
-        }
+	public String getPattern() {
+		
+		if(pattern==null || pattern.length()==0){
+			
+			return DEFAULT_PATTERN;
+		}
+		
+		return pattern;
+	}
 
-        // none is explicitly configured. try the default ---
-        // if only one is configured, that must be it.
-        AssemblaSite[] sites = AssemblaProjectProperty.DESCRIPTOR.getSites();
-        if(sites.length==1) return sites[0];
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
+	}
 
-        return null;
-    }
-    
-    @Override
-    public String toString() {
-    
-    	return "URL='"+url+"' - Space='"+space+"' Username='"+username+"' Password='xxxxxx'";
-    }
+	public static AssemblaSite get(AbstractProject<?, ?> p) {
+		AssemblaProjectProperty jpp = p
+				.getProperty(AssemblaProjectProperty.class);
+		if (jpp != null) {
+			AssemblaSite site = jpp.getSite();
+			if (site != null)
+				return site;
+		}
+
+		// none is explicitly configured. try the default ---
+		// if only one is configured, that must be it.
+		AssemblaSite[] sites = AssemblaProjectProperty.DESCRIPTOR.getSites();
+		if (sites.length == 1)
+			return sites[0];
+
+		return null;
+	}
+
+	@Override
+	public String toString() {
+
+		return "URL='" + url + "' - Space='" + space + "' Username='"
+				+ username + "' Password='xxxxxx'";
+	}
 }

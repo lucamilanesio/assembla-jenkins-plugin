@@ -138,7 +138,7 @@ public class AssemblaProjectProperty extends JobProperty<AbstractProject<?, ?>> 
 				throws IOException, ServletException {
 			try {
 
-				AssemblaSite site = new AssemblaSite(username, password, url);
+				AssemblaSite site = new AssemblaSite(username, password, url, null);
 				AssemblaHttpClient client = new AssemblaHttpClient(site);
 
 				int serverError = client.executeHttpGet("my_spaces", null);

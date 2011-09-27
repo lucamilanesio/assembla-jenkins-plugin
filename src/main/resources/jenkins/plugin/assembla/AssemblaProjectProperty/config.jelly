@@ -12,7 +12,7 @@
 			<f:entry title="Assembla Space name" field="spaceName">
 			    <f:textbox name="assembla.spaceName"/>
 			</f:entry>
-			<f:entry title="Update Assembla ticket" field="backtrackEnabled">
+			<f:entry title="Update relevant Assembla ticket" field="backtrackEnabled">
 			     <f:checkbox name="assembla.backtrackEnabled" />
 			</f:entry>
 		  </j:if>

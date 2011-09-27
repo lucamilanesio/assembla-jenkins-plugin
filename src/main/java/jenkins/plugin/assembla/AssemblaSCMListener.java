@@ -21,10 +21,6 @@ public class AssemblaSCMListener extends SCMListener {
 	private static final Logger LOGGER = Logger
 			.getLogger(AssemblaSCMListener.class.getName());
 
-	// should match something like "#21 blahblah"
-	private static final Pattern DEFAULT_ASSEMBLA_TICKET_PATTERN = Pattern
-			.compile("(#)([0-9]+)( .*)");
-
 	private transient AssemblaSite site = null;
 
 	@Override
@@ -62,7 +58,7 @@ public class AssemblaSCMListener extends SCMListener {
 
 		String commitMessage = change.getMsg();
 
-		Pattern pattern = DEFAULT_ASSEMBLA_TICKET_PATTERN;
+		Pattern pattern = Pattern.compile(site.getPattern());
 		Matcher m = pattern.matcher(commitMessage);
 
 		AssemblaTicketsAPI ticketApi = new AssemblaTicketsAPI(site);
@@ -70,7 +66,7 @@ public class AssemblaSCMListener extends SCMListener {
 		while (m.find()) {
 			if (m.groupCount() >= 1) {
 
-				String ticketNumber = m.group(2);
+				String ticketNumber = m.group(1).substring(1);
 				LOGGER.info("ASSEMBLA ticket pattern matches");
 				LOGGER.info("Getting ASSEMBLA ticket: '" + ticketNumber + "'");
 
@@ -85,7 +81,7 @@ public class AssemblaSCMListener extends SCMListener {
 						+ ticketNumber + "'");
 				ticketApi.doCommentTicket(site.getSpace(), ticketNumber,
 						"[[url:" + Hudson.getInstance().getRootUrl() + "/"
-								+ build.getUrl() + "]] " + m.group(3));
+								+ build.getUrl() + "]] " + m.group(2));
 
 			} else {
 				LOGGER.log(Level.WARNING, "The ASSEMBLA pattern " + pattern
